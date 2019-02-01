@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXIST algebra_contacts DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE algebra_contacts;
+
+CREATE TABLE IF NOT EXIST users(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username varchar(20) NOT NULL UNIQUE,
+    password varchar(64) NOT NULL,
+    salt varchar(32) NOT NULL,
+    name varchar(50) NULL,
+    joined TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXIST role(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(20) NOT NULL,
+    permissions TEXT NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXIST sessions(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    hash varchar(64) NOT NULL,
+    user_id int UNSIGNED NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXIST persons(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(128) NOT NULL,
+    user_id int UNSIGNED NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXIST contacts(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    contact_type varchar(255) NOT NULL,
+    contact_data text NOT NULL,
+    person_id int UNSIGNED NOT NULL
+) ENGINE=InnoDB;
