@@ -32,6 +32,9 @@ Helper::getHeader('Algebra Contacts', 'main_header');
 
 <?php
 
+echo '<pre>';
+print_r(Config::get('session'));
+echo '</pre>';
 Helper::getFooter();
 
 ?>
