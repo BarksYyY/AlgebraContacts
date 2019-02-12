@@ -8,7 +8,7 @@ return [
           'user' => 'root',
           'password' => '',
           'db' => 'algebra_contacts',
-          'charset' => 'utf8',
+          'charset' => 'UTF8',
           'collation' => 'utf8_general_ci'
      ],
      'sqlite' => [
@@ -19,7 +19,7 @@ return [
           'user' => '',
           'password' => '',
           'db' => '',
-          'charset' => 'utf8',
+          'charset' => 'UTF8',
           'collation' => 'utf8_general_ci'
      ]
 ]
