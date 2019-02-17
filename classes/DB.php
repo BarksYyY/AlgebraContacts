@@ -154,5 +154,9 @@ class DB{
      public function getCount(){
           return $this->_count;
      }
+
+     public function getFirst(){
+          return $this->_results[0];
+     }
 }
 ?>
