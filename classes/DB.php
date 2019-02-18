@@ -40,16 +40,14 @@ class DB{
           if($this->_query = $this->_conn->prepare($sql)){
 
                if (!empty($params)) {
+                    $counter = 1;
 
-               /* for ($i=0; $i < count($params); $i++) {
-               $this->query->bindValue($i+1, $params[$i]);
-               } */
-               $counter = 1;
                     foreach ($params as $key => $param) {
                          $this->_query->bindValue($counter, $param);
                          $counter++;
                     }
                }
+
                if($this->_query->execute()){
                     $this->_results = $this->_query->fetchAll(Config::get('database')['fetch']);
                     $this->_count = $this->_query->rowCount();
@@ -61,24 +59,30 @@ class DB{
      }
 
      private function action($action, $table, $where = array()){
-          if (count($where) === 3) {
-               $operators = array('=', '<', '>', '<=', '>=');
+          if (!empty($where)) {
+               $array_chunks = array_chunk($where, 4);
+               $field_num = count($array_chunks);
+               $condition = '';
+               $i = 1;
 
-               $field = $where[0];
-               $operator = $where[1];
-               $value = $where[2];
+               foreach ($array_chunks as $chunks) {
+                    $values[] = $chunks[2];
+                    $condition .= $chunks[0]." ".$chunks[1]."?";
 
-                    if (in_array($operator, $operators)) {
-                         $sql = "$action FROM $table WHERE $field $operator ?";
-
-                         if (!$this->query($sql, array($value))->getError()) {
-                              return $this;
-                         }
+                    if ($i < $field_num) {
+                         $condition .= $chunks[3]." ";
                     }
+                    $i++;
+               }
+               $sql = "$action FROM $table WHERE $condition";
+
+               if (!$this->query($sql,$values)->getError()) {
+                    return $this;
+               }
+               
           }else {
                $sql = "$action FROM $table";
-
-               if (!$this->query($sql)->getError()) {
+               if  (!$this->query($sql)->getError()) {
                     return $this;
                }
           }

@@ -22,13 +22,19 @@ if (Input::exists()) {
           'password' => [
                'required'     => 'true',
                'min'          => 6,
-               'pattern'      => 'true'
+               'pass_pattern' => 'true'
           ],
           'confirm_password' => [
                'required'     => 'true',
                'matches'      => 'password'
           ]
      ]);
+
+     if ($validate->passed()) {
+          Session::flash('success', 'Your Registration is Successful !!');
+          header('Location:login.php');
+          exit();
+     }
 }
 
 ?>

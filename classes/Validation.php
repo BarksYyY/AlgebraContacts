@@ -47,7 +47,7 @@ class Validation{
                                    }
                                    break;
 
-                              case 'pattern':
+                              case 'pass_pattern':
                                    $pattern = preg_match('((?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,21})', $value);
                                    if (!($pattern && $value)) {
                                         $this->addError($item, "Field $item must include <b>at least</b> 6 characters and one <i>uppercase letter</i>, one <i>lowercase letter</i>, and one <i>number</i>.");
