@@ -40,9 +40,34 @@
                                    </li>
                               </ul>
                               <ul class="nav navbar-nav navbar-right">
-                                   <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-                                   <li><a href="../navbar-static-top/">Static top</a></li>
-                                   <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+                                   <?php
+
+                                   $user = new User();
+                                   if ($user->check()) {
+
+                                   ?>
+                                   <!-- When User is Logged In-->
+                                   <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?php echo $user->data()->username ?> <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                             <li> <a href="logout.php">Logout</a></li>
+                                        </ul>
+                                   </li>
+                                   <?php
+
+                                   }else{
+
+                                   ?>
+                                        <!-- When User in Not Logged In-->
+                                        <li><a href="login.php">Sign In</a></li>
+                                        <li><a href="register.php">Sign Up</a></li>
+                                   <?php
+
+                                   }
+                                   
+                                   ?>
                               </ul>
                          </div>
                     </div>

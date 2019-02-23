@@ -33,10 +33,10 @@ class User{
      public function find($userId = null){
           if ($userId) {
                $field = (is_numeric($userId)) ? 'id' : 'username' ;
-               $_data = $this->_db->get('*', 'users', [$field, '=', $userId]);
+               $data = $this->_db->get('*', 'users', [$field, '=', $userId]);
 
-               if ($_data->count()) {
-                    $this->_data = $_data->first();
+               if ($data->getCount()) {
+                    $this->_data = $data->getFirst();
                     return true;
                }
           }
@@ -44,7 +44,20 @@ class User{
      }
 
      public function login($username = null, $password = null){
+          $user = $this->find($username);
 
+          if ($user) {
+               if ($this->data()->password === Hash::make($password, $this->data()->salt) && $this->data()->username === Input::get('username')) {
+                    Session::put($this->_session_name, $this->data()->id);
+                    return true;
+               }
+          }
+          return false;
+     }
+
+     public function logout(){
+          Session::delete($this->_session_name);
+          session_destroy();
      }
 
      public function data(){
