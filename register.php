@@ -5,6 +5,9 @@ require_once 'core/init.php';
 Helper::getHeader('Algebra Contacts', 'main_header');
 
 $user = new User();
+if ($user->check()) {
+     Redirect::to('dashboard');
+}
 
 $validation = new Validation();
 
@@ -69,7 +72,7 @@ if (Input::exists()) {
                     <h3 class="panel-title">Create an account</h3>
                </div>
                <div class="panel-body">
-                    <form method="POST">
+                    <form method="post">
 
                          <input type="hidden" name="token" value="<?php echo Token::factory()::generate(); ?>">
                          <div class="form-group <?php echo ($validation->hasError('name')) ? 'has-error' : ''; ?>">
@@ -78,7 +81,7 @@ if (Input::exists()) {
                               <?php echo ($validation->hasError('name')) ? '<p class="text-danger"> '.$validation->hasError('name'). '</p>' : ''; ?>
                          </div>
                          <div class="form-group <?php echo ($validation->hasError('username')) ? 'has-error' : ''; ?>">
-                              <label for="name" class="control-label">Username*</label>
+                              <label for="username" class="control-label">Username*</label>
                               <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" value="<?php echo Input::get('username') ?>">
                               <?php echo ($validation->hasError('username')) ? '<p class="text-danger"> '.$validation->hasError('username'). '</p>' : ''; ?>
                          </div>

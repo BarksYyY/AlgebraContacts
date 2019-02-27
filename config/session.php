@@ -3,7 +3,7 @@
 return[
      'remember' => [
           'cookie_name' => 'hash',
-          'cookie_expiery' => 604800 // Tjedan dana
+          'cookie_expiry' => 604800 // One week in seconds
      ],
      'session' => [
           'session_name' => 'user',

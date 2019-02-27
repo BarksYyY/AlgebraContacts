@@ -20,8 +20,8 @@ class Validation{
                          $this->addError($item, "Field $item is required");
 
                     }elseif (!empty($value)) {
-                         switch ($rule) {
 
+                         switch ($rule) {
                               case 'min':
                                    if (strlen($value) < $rule_value) {
                                         $this->addError($item, "Field $item must have a minimum of $rule_value characters.");

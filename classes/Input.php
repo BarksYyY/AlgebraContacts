@@ -1,36 +1,34 @@
 <?php
 
 class Input{
-     private function __construct(){
-     }
-     private function __clone(){
-     }
+     private function __construct(){}
+     private function __clone(){}
 
-     public static function exists($type = 'POST'){
-          switch ($type) {
+          public static function exists($type = 'post'){
 
-               case 'POST':
-                    return !empty($_POST) ? true : false;
-                    break;
+               switch ($type) {
+                    case 'post':
+                         return !empty($_POST) ? true : false;
+                         break;
 
-               case 'GET':
-                    return !empty($_GET) ? true : false;
-                    break;
+                    case 'get':
+                         return !empty($_GET) ? true : false;
+                         break;
 
-               default:
-                    return false;
-                    break;
+                    default:
+                         return false;
+                         break;
+               }
           }
-     }
-     public static function get($item){
-          if (isset($_POST[$item])) {
-               return $_POST[$item];
+          public static function get($item){
+               if (isset($_POST[$item])) {
+                    return $_POST[$item];
 
-          }elseif (isset($_GET[$item])) {
-               return $_GET[$item];
+               }elseif (isset($_GET[$item])) {
+                    return $_GET[$item];
+               }
+               return '';
           }
-          return '';
-     }
 }
 
 ?>

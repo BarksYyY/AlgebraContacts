@@ -9,7 +9,7 @@ class Token{
      }
      //factory pattern
      public static function factory(){
-          return new self;
+          return new Token();
      }
 
      public static function generate(){

@@ -14,4 +14,20 @@ ini_set('display_startup_errors', $displayErrors);
 
 require_once 'functions/sanitize.php';
 
+$sessionConfig = Config::get('session');
+$session_name = $sessionConfig['session']['session_name'];
+$cookie_name = $sessionConfig['remember']['cookie_name'];
+
+if (!Session::exists($session_name) && Cookie::exists($cookie_name)) {
+
+     $cookieHash = Cookie::get($cookie_name);
+     $dbHash = DB::getInstance()->get('*', 'sessions', ['hash', '=', $cookieHash]);
+
+     if ($dbHash->getCount()) {
+          $userId = $dbHash->getFirst()->user_id;
+          $user = new User($userId);
+          $user->login();
+     }
+}
+
 ?>

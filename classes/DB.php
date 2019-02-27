@@ -53,6 +53,9 @@ class DB{
                     $this->_count = $this->_query->rowCount();
                }else {
                     $this->_error = true;
+                    if (Config::get('app')['display_errors']) {
+                         die($this->_query->errorInfo()[2]);
+                    }
                }
           }
           return $this;
@@ -79,7 +82,7 @@ class DB{
                if (!$this->query($sql,$values)->getError()) {
                     return $this;
                }
-               
+
           }else {
                $sql = "$action FROM $table";
                if  (!$this->query($sql)->getError()) {
