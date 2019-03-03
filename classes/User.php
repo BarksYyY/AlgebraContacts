@@ -93,6 +93,11 @@ class User{
           session_destroy();
      }
 
+     public function exists(){
+
+         return (!empty($this->_data)) ? true : false;
+     }
+
      public function data(){
           return $this->_data;
      }

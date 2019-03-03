@@ -22,7 +22,7 @@ if (Input::exists()) {
           if ($validation->passed()) {
                $username = Input::get('username');
                $password = Input::get('password');
-               $remeber = (bool)Input::get('remember');
+               $remember = (bool)Input::get('remember');
 
                $login = $user->login($username, $password, $remember);
 
